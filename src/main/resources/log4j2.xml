@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <Console name="Console">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}: %msg%n"/>
+    </Console>
+    <Console name="JDAConsole">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level JDA: %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="INFO">
+      <AppenderRef ref="Console"/>
+    </Root>
+    <Logger name="net.dv8tion.jda" level="DEBUG"
+      additivity="false">
+      <AppenderRef ref="JDAConsole"/>
+    </Logger>
+  </Loggers>
+</Configuration>
