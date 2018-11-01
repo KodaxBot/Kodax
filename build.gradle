@@ -1,4 +1,17 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "com.github.jengelman.gradle.plugins:shadow:4.0.2"
+  }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
+apply plugin: 'maven'
 
 group 'me.kodingking.bots'
 version '1.0.0'
@@ -21,4 +34,43 @@ dependencies {
     compile 'com.github.fcannizzaro:material-colors:0.1.0'
     compile 'org.reflections:reflections:0.9.11'
     compile 'dom4j:dom4j:1.6.1'
+    compile 'org.xerial:sqlite-jdbc:3.25.2'
+}
+
+build.dependsOn(shadowJar)
+
+jar {
+    manifest.attributes(
+            'Main-Class': 'me.kodingking.bots.kodax.main.Main'
+    )
+}
+
+task createPom << {
+    pom {
+        project {
+            groupId 'me.kodingking.bots'
+            artifactId 'Kodax'
+            version '1.0.0'
+
+            inceptionYear '2018'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            
+            repositories {
+                repository {
+                    id 'JitPack'
+                    url 'https://jitpack.io'
+                }
+                repository {
+                    id 'JCenter'
+                    url 'https://jcenter.bintray.com'
+                }
+            }
+        }
+    }.writeTo("pom.xml")
 }

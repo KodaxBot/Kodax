@@ -1,6 +1,7 @@
 package me.kodingking.bots.kodax;
 
 import me.kodingking.bots.kodax.core.KodaxSettings;
+import me.kodingking.bots.kodax.database.KodaxDatabase;
 import me.kodingking.bots.kodax.handlers.CommandHandler;
 import me.kodingking.bots.kodax.handlers.LocaleHandler;
 import me.kodingking.bots.kodax.handlers.LoggingHandler;
@@ -28,6 +29,7 @@ public class Kodax {
         LoggingHandler.LOGGER.info("Performing startup sequence");
 
         LoggingHandler.LOGGER.info("Loading handlers");
+        KodaxDatabase.init();
         CommandHandler.init();
         LocaleHandler.init();
 
