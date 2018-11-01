@@ -10,6 +10,8 @@ import me.kodingking.bots.kodax.listeners.JDAGuildListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Game.GameType;
 
 public class Kodax {
 
@@ -42,6 +44,12 @@ public class Kodax {
                 new JDAGuildListener()
             )
             .build();
+
+        LoggingHandler.LOGGER.debug("Loading previous settings");
+        String game = KodaxDatabase.getSetting("Game", "");
+        if (!game.isEmpty()) {
+            BOT.getPresence().setPresence(Game.of(GameType.DEFAULT, game), false);
+        }
 
         LoggingHandler.LOGGER.info("Done! Waiting for JDA to finish");
     }
